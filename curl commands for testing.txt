@@ -1,0 +1,5 @@
+# Upload single document
+curl.exe -X POST -F "files=@C:\Users\kaush\Downloads\byte pair encoding.pdf" 'http://localhost:8000/api/v1/sessions/fe7daaab-3a84-4d04-aee8-331ce2e8361a/upload'
+
+# Upload multiple documents
+curl.exe -X POST -F "files=@C:\Users\kaush\Downloads\byte pair encoding.pdf" -F "files=@C:\Users\kaush\Downloads\second document.pdf" 'http://localhost:8000/api/v1/sessions/fe7daaab-3a84-4d04-aee8-331ce2e8361a/upload'
