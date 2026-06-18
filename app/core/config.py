@@ -9,6 +9,8 @@ class Settings(BaseSettings):
     DATABASE_PASSWORD: str = "password"
     DEFAULT_DATABASE: str = "postgres"
 
+    RETRIEVAL_TOP_K: int = 5
+
     @property
     def database_url(self) -> str:
         return (

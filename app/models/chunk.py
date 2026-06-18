@@ -15,7 +15,7 @@ class DocumentChunk(Base):
     chunk_id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
     document_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("documents.document_id", ondelete="CASCADE"), nullable=False, index=True)
     content: Mapped[str] = mapped_column(Text, nullable=False)
-    chunk_metadata: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    chunk_metadata: Mapped[dict | None] = mapped_column("metadata", JSON, nullable=True)
     embedding = mapped_column(Vector(384), nullable=True)
     token_count: Mapped[int | None] = mapped_column(Integer, nullable=True)
     chunk_index: Mapped[int | None] = mapped_column(Integer, nullable=True)

@@ -27,4 +27,3 @@ async def link_to_session(db: AsyncSession, session_id: uuid.UUID, document_id: 
     )
     if existing.scalar_one_or_none() is None:
         db.add(SessionDocument(session_id=session_id, document_id=document_id))
-    await db.commit()

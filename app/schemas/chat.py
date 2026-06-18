@@ -14,3 +14,22 @@ class SessionResponse(BaseModel):
     last_active: datetime
 
     model_config = {"from_attributes": True}
+
+
+class QueryRequest(BaseModel):
+    query: str
+    top_k: int | None = None
+
+
+class RetrievedChunk(BaseModel):
+    chunk_id: int
+    document_id: uuid.UUID
+    chunk_index: int | None
+    title: str | None
+    content: str
+    score: float
+
+
+class QueryResponse(BaseModel):
+    query: str
+    chunks: list[RetrievedChunk]
