@@ -27,3 +27,14 @@ async def link_to_session(db: AsyncSession, session_id: uuid.UUID, document_id: 
     )
     if existing.scalar_one_or_none() is None:
         db.add(SessionDocument(session_id=session_id, document_id=document_id))
+
+
+async def get_session_documents(db: AsyncSession, session_id: uuid.UUID) -> list[Document]:
+    """Return all documents linked to a session, ordered by upload time (newest first)."""
+    result = await db.execute(
+        select(Document)
+        .join(SessionDocument, SessionDocument.document_id == Document.document_id)
+        .where(SessionDocument.session_id == session_id)
+        .order_by(Document.created_date.desc())
+    )
+    return list(result.scalars().all())

@@ -51,6 +51,9 @@ logs/
 .idea/
 *.iml
 
+# Graphify — generated knowledge graph artifacts
+graphify-out/
+
 # OS
 .DS_Store
 Thumbs.db

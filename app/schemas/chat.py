@@ -1,5 +1,6 @@
 import uuid
 from datetime import datetime
+from typing import Literal
 
 from pydantic import BaseModel
 
@@ -33,3 +34,41 @@ class RetrievedChunk(BaseModel):
 class QueryResponse(BaseModel):
     query: str
     chunks: list[RetrievedChunk]
+
+
+# ── Chat (RAG + LLM) ─────────────────────────────────────────────────────────
+
+class ChatRequest(BaseModel):
+    query: str
+    mode: Literal["fast", "thinking"] = "fast"
+    top_k: int | None = None
+
+
+class ChatResponse(BaseModel):
+    session_chat_id: int
+    query: str
+    answer: str
+    mode: str
+    model_used: str
+    chunks: list[RetrievedChunk]
+
+
+# ── Chat history ──────────────────────────────────────────────────────────────
+
+class ChatHistoryItem(BaseModel):
+    session_chat_id: int
+    query: str | None
+    answer: str | None
+    mode: str | None
+    model_used: str | None
+    created_date: datetime
+
+    model_config = {"from_attributes": True}
+
+
+class ChatHistoryResponse(BaseModel):
+    session_id: uuid.UUID
+    total: int
+    page: int
+    page_size: int
+    items: list[ChatHistoryItem]

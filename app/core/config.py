@@ -11,6 +11,19 @@ class Settings(BaseSettings):
 
     RETRIEVAL_TOP_K: int = 5
 
+    # Environment: "development" uses Ollama, "production" uses Groq
+    ENV: str = "development"
+
+    # Ollama settings (development)
+    OLLAMA_URL: str = "http://localhost:11434"
+    OLLAMA_FAST_MODEL: str = "phi4-mini:3.8b-q4_K_M"
+    OLLAMA_THINKING_MODEL: str = "phi4-mini-reasoning:3.8b-q4_K_M"
+
+    # Groq settings (production)
+    GROQ_API_KEY: str = ""
+    GROQ_FAST_MODEL: str = "llama-3.1-8b-instant"
+    GROQ_THINKING_MODEL: str = "qwen-qwq-32b"
+
     @property
     def database_url(self) -> str:
         return (
