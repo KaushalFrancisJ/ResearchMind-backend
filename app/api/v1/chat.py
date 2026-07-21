@@ -6,9 +6,6 @@ from pathlib import Path
 from fastapi import APIRouter, Depends, HTTPException, UploadFile
 from sqlalchemy.ext.asyncio import AsyncSession
 
-UPLOADS_DIR = Path(__file__).resolve().parents[3] / "uploads"
-UPLOADS_DIR.mkdir(exist_ok=True)
-
 from app.core.config import settings
 from app.db.session import get_db
 from app.repositories import chat_repo, chunk_repo, document_repo
@@ -27,6 +24,10 @@ from app.schemas.document import SessionDocumentItem
 from app.services.chunking import extract_chunks_from_pdf
 from app.services.llm import generate
 from app.services.retrieval.vector_search import vector_search
+
+# Get uploads directory from settings
+UPLOADS_DIR = Path(settings.UPLOADS_DIR)
+UPLOADS_DIR.mkdir(exist_ok=True)
 
 router = APIRouter(prefix="/sessions", tags=["sessions"])
 

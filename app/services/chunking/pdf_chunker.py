@@ -41,7 +41,6 @@ def extract_chunks_from_pdf(file_path: str) -> Generator[Chunk, None, None]:
 
     for line in all_lines:
         text = line["text"]
-        is_larger = line["size"] >= heading_threshold
         is_bold = line["bold"]
         # Must be both larger AND bold, or bold+larger-than-body (catches slight size bumps)
         is_heading = is_bold and line["size"] > body_size

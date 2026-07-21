@@ -3,7 +3,7 @@ import ollama
 from app.core.config import settings
 
 
-def generate_ollama(messages: list[dict], mode: str) -> str:
+def generate_ollama(messages: list[dict], mode: str) -> tuple[str, str]:
     """Generate a response using a local Ollama model.
 
     Args:
@@ -11,7 +11,7 @@ def generate_ollama(messages: list[dict], mode: str) -> str:
         mode: "fast" or "thinking"
 
     Returns:
-        The assistant response text.
+        Tuple of (response text, model name used).
     """
     model = (
         settings.OLLAMA_THINKING_MODEL if mode == "thinking" else settings.OLLAMA_FAST_MODEL
